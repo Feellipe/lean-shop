@@ -9,7 +9,7 @@ import Header from "./components/header/header.component.js";
 function App() {
   return (
     <div>
-      <Header />
+      <Header className="algo" />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
