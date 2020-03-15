@@ -8,6 +8,7 @@ import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.component.
 import Header from "./components/header/header.component.js";
 import {auth } from './firebase/firebase.utils'
 
+
 class App extends React.Component {
   constructor(){
     super()
