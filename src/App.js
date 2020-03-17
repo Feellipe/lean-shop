@@ -13,17 +13,32 @@ class App extends React.Component {
     super();
 
     this.state = {
-      currentUser: null
+      currentUser: null,
+      user: null,
     };
   }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
-      createUserProfileDoc(user);
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if(userAuth){
+        const userRef = await createUserProfileDoc(userAuth);
+        //the userRef is the return of the user we just created in the firestore
+
+        // a documentSnapshot is the return of a documentRef
+        userRef.onSnapshot(snapShot => {
+          this.setState({ currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+          }
+         }); 
+
+         console.log(this.state)
+        });
+      }
+
+      this.setState({currentUser: userAuth})      
     });
   }
 

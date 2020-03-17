@@ -14,12 +14,15 @@ const config = {
 };
 
 export const createUserProfileDoc = async (userAuth, additionalData) => {
+  // when we log out the return for the userAuth is 'null' so we just want to return and stop the function
   if (!userAuth) return;
 
+  // with the return of the userAuth we try to get the generated firebase id
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
 
+  // here we create the data with the logged in user information, checking if the user/uid exists or not so we don't create a already existing user
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
@@ -35,6 +38,7 @@ export const createUserProfileDoc = async (userAuth, additionalData) => {
       console.log("error creating user", err);
     }
   }
+  //and then return the userRef to be used by the app
   return userRef;
 };
 

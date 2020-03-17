@@ -4,7 +4,7 @@ import "./sign-up.style.scss";
 import FormInput from "../form-input/form-input.componet";
 import CustomButton from "../custom-button/custom-button.componet";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { auth, createUserProfileDoc } from "../../firebase/firebase.utils";
 
 class SignUp extends React.Component {
   constructor() {
@@ -27,7 +27,6 @@ class SignUp extends React.Component {
       alert("passwords don't match");
       return;
     }
-
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
@@ -35,7 +34,7 @@ class SignUp extends React.Component {
       );
 
       // ao retornar o valor de user com a criação do createUserWithEm&Paswr, usamos para criar no DB o doc do user
-      await createUserProfileDocument(user, { displayName });
+      await createUserProfileDoc(user, { displayName });
 
       // depois de criado o perfil podemos resetar os valores
       this.setState({
@@ -72,7 +71,7 @@ class SignUp extends React.Component {
           />
           <FormInput
             type="email"
-            name="displayName"
+            name="email"
             value={email}
             onChange={this.handleChange}
             label="Email"
@@ -80,7 +79,7 @@ class SignUp extends React.Component {
           />
           <FormInput
             type="password"
-            name="Password"
+            name="password"
             value={password}
             onChange={this.handleChange}
             label="Password"
