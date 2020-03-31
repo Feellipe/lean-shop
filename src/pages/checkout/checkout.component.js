@@ -36,8 +36,8 @@ return(
         <div className='total'>
             <span> TOTAL: ${total}</span>
         </div>
-        <div>*PLEASE USE THIS CREDIT CARD NUMBER TO TEST THE PAYMENT</div>
-        <div>4242 4242 4242 4242 -- Exp: 05/20  -- CW: 123</div>
+        <div className='test-warning'>*PLEASE USE THIS CREDIT CARD NUMBER TO TEST THE PAYMENT
+        <br/> 4242 4242 4242 4242 -- Exp: 05/20  -- CW: 123</div>
         <StripeCheckoutButton  price={total}/>
     </div>
 )}
