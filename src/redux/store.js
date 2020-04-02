@@ -6,6 +6,10 @@ import rootReducer from './root-reducer'
 
 const middlewares = [logger];
 
+if (process.env.NODE_ENV === 'development'){
+    middlewares.push(logger)
+}
+
 // criar a store com todos os reducers + os logs do middleware 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares))
 
