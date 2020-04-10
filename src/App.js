@@ -8,19 +8,19 @@ import SignInSignUpPage from "./pages/sign-in-sign-up/sign-in-sign-up.component.
 import CheckoutPage from './pages/checkout/checkout.component.js'
 
 import Header from "./components/header/header.component.js";
-import { auth, createUserProfileDoc } from "./firebase/firebase.utils";
+import { auth, createUserProfileDoc, addCollectionAndDocuments } from "./firebase/firebase.utils";
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect';
 import { setCurrentUser } from './redux/user/user.actions'
 import {selectCurrentUser} from './redux/user/user.selector'
+import {selectCollectionsForPreview} from './redux/shop/shop.selectors'
 
 class App extends React.Component {
-
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const {setCurrentUser} = this.props
+    const {setCurrentUser, collectionsArray} = this.props
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if(userAuth){
@@ -29,6 +29,7 @@ class App extends React.Component {
 
         // a documentSnapshot is the return of a documentRef
         //this is setting the user after it got the Doc of the user in the firestore 
+        // the listener onSnapshot is listening for any change in the userRef
         userRef.onSnapshot(snapShot => {
           setCurrentUser({ 
             id: snapShot.id,
@@ -37,8 +38,8 @@ class App extends React.Component {
         });
       }
 
-      //esse está setando o user que foi autenticado no firebase
-      setCurrentUser( userAuth)      
+      //esse está setando o user que foi autenticado pelo firebase
+      setCurrentUser( userAuth);      
     });
   }
 
@@ -47,7 +48,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {currentUser} = this.props
+    const {currentUser} = this.props;
 
     return (
       <div>
@@ -65,7 +66,8 @@ class App extends React.Component {
 
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -38,9 +38,48 @@ export const createUserProfileDoc = async (userAuth, additionalData) => {
       console.log("error creating user", err);
     }
   }
+
+
   //and then return the userRef to be used by the app
   return userRef;
 };
+
+
+export const addCollectionAndDocuments = async ( collectionKey, objectsToAdd ) => {
+  const collectionRef = firestore.collection(collectionKey)
+  console.log(collectionRef);
+
+  //esse método batch garante que se alguma parte da chamada para o db falhar em settar algo, falhar tudo e ter uma previsibilidade melhor
+  const batch = firestore.batch();
+  objectsToAdd.forEach(obj => {
+    // gerar um uid aleatorio para cada doc da coleção
+    const newDocRef = collectionRef.doc();
+    console.log(newDocRef)
+    batch.set( newDocRef, obj );
+  }); 
+
+  return await batch.commit()
+
+}
+
+export const convertColletionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map(doc => {
+    const {title, items} = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  })
+  
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection
+    return accumulator;
+  }, {})
+
+} 
 
 firebase.initializeApp(config);
 

@@ -8,9 +8,7 @@ import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
 import {selectCartHidden} from '../../redux/cart/cart.selector'
 import {selectCurrentUser} from '../../redux/user/user.selector'
-import {HeaderContainer, LogoContainer, OptionsContainer, OptionDiv, OptionLink} from './header.styles'
-
-import "./header.style.scss";
+import {HeaderContainer, LogoContainer, OptionsContainer, OptionLink} from './header.styles'
 
 // o createStructuresdSelector funciona para em vez de passar o state para cada selector, chamamos essa função que recebe os selectors e já passa o state pra
 const mapStateToProps = createStructuredSelector({
@@ -32,7 +30,7 @@ const Header = ({currentUser, hidden}) => (
       </OptionLink>
       {
         currentUser ?
-        <OptionDiv onClick={() => auth.signOut()}> SIGN OUT</OptionDiv>
+        <OptionLink as='div' onClick={() => auth.signOut()}> SIGN OUT</OptionLink>
         :
         <OptionLink to='/signin'> SIGN IN</OptionLink>
       }
