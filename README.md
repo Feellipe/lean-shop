@@ -1,3 +1,9 @@
+
+This is a ready to ship store template with the auth and the data configured coming from firebase. Redux and Reselect already configured. Just missing to finilize the styled components refactor
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
