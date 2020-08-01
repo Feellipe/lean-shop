@@ -9,7 +9,7 @@ const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
         className="menu-item__background-image"></div>
         <div className="menu-item__content">
             <h1 className="menu-item__content--title"> {title.toUpperCase()}</h1>
-            <h2 className="menu-item__content--subtitle"> SHOP NOW</h2>
+            {/* <h2 className="menu-item__content--subtitle"> SHOP NOW</h2> */}
         </div>
     </div>
 )
